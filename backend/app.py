@@ -77,6 +77,21 @@ def signin():
     else:
         return "ログイン失敗"
 
+# ホーム画面のルーティング
+@app.get("/api/workouts")
+def home():
+    db = getConnection()
+    cursor = db.cursor()
+    try:
+        user_id = session.get("user_id")
+        sql = "SELECT * FROM workouts WHERE id = %s"
+        cursor.execute(sql, (user_id,))
+        workouts = cursor.fetchall()
+    finally:
+        cursor.close()
+        db.close()
+    return jsonify(workouts)
+
 @app.get("/signout")
 def signout():
     session.clear()
