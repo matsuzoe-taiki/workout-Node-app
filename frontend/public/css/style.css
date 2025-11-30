@@ -119,3 +119,14 @@ footer small {
 .pass-error-message.is-visible {
     display: block;/*エラー時に表示*/
 }
+
+/* home画面 */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#workouts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+}
