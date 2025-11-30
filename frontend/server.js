@@ -9,10 +9,17 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 動作確認
+// ホーム画面のAPI
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "home.html"))
-});
+    res.sendFile(path.join(__dirname, "public", "home.html"));
+})
+
+app.get("/api/workouts", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/api/workouts");
+    const data = await response.json();
+    res.json(data);
+})
+//
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -24,15 +31,6 @@ app.get("/signup", (req, res) => {
 app.get("/signin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "signin.html"));
 });
-
-app.get("/exercise", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "exercise.html"));
-});
-
-app.get("/exercise/detail", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "detail.html"));
-});
-
 
 app.get("/signout", (req, res) => {
 
