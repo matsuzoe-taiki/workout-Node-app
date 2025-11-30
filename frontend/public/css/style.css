@@ -1,0 +1,121 @@
+/* テンプレート用 */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+.header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    color: black;
+    border-bottom: solid #555;
+    position: relative;
+    height: 20vh;
+    transition-duration: 1.0s;
+}
+.header-box.is-active {
+    height: 60vh;
+}
+
+.app-logo {
+    position: fixed;
+    top: 0.5rem;
+    left: 3rem;
+    padding: 0;
+    width: 150px;
+    height: 150px;
+}
+#menuButton {
+    position: fixed;
+    top: 3rem;
+    right: 3rem;
+    width: 80px;
+    height: 80px;
+    z-index: 10;
+    transition: transform 0.5s ease;
+    border: none;
+    background-color: white;
+}
+#menuButton span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    margin: 10px 0;
+    transition: all 0.5s ease;
+}
+#menuButton.is-active {
+    transform: rotate(360deg);/*全体が回転*/
+}
+#menuButton.is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);/*バツの左上*/
+}
+#menuButton.is-active span:nth-child(2) {
+    opacity: 0;/*中央の線を隠す*/
+}
+#menuButton.is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+#menu {
+    position: absolute;
+    left: 3rem;
+    bottom: 0;
+    display: none;
+}
+#menu.is-active {
+    display: block;
+}
+#menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#menu ul a {
+    font-size: 40px;
+    display: block;
+    padding: 0.5rem;
+    color: black;
+    text-decoration: underline;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+}
+footer small {
+    font-size: 20px;
+    position: fixed;
+    bottom: 0;
+    margin: 3rem 0;
+}
+
+
+
+/* 新規登録画面andログイン画面 */
+.name-error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;/*初期状態では非表示*/
+}
+.name-error-message.is-visible {
+    display: block;/*エラー時に表示*/
+}
+.email-error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;/*初期状態では非表示*/
+}
+.email-error-message.is-visible {
+    display: block;/*エラー時に表示*/
+}
+.pass-error-message {
+    color: red;
+    font-size: 0.9rem;
+    display: none;/*初期状態では非表示*/
+}
+.pass-error-message.is-visible {
+    display: block;/*エラー時に表示*/
+}
