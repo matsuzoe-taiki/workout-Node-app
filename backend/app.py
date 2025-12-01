@@ -78,7 +78,7 @@ def signin():
         return "ログイン失敗"
 
 # ホーム画面のルーティング
-@app.get("/api/workouts")
+@app.get("/api/get/workouts")
 def home():
     db = getConnection()
     cursor = db.cursor()
