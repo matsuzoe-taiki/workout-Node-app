@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function renderWorkouts() {
         try {
             // バックサーバーにアクセス
-            const response = await fetch("/api/workouts");
+            const response = await fetch("/api/get/workouts");
             const data = await response.json();
             console.log(data);
         }catch(error){

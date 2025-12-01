@@ -14,8 +14,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "home.html"));
 })
 
-app.get("/api/workouts", async (req, res) => {
-    const response = await fetch("http://127.0.0.1:5000/api/workouts");
+app.get("/api/get/workouts", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/api/get/workouts");
     const data = await response.json();
     res.json(data);
 })
