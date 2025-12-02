@@ -13,9 +13,19 @@ const __dirname = path.dirname(__filename);
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "home.html"));
 })
-
+// ワークアウトの取得
 app.get("/api/get/workouts", async (req, res) => {
     const response = await fetch("http://127.0.0.1:5000/api/get/workouts");
+    const data = await response.json();
+    res.json(data);
+})
+// ワークアウトのデータベースへの追加
+app.post("/api/add/workouts", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/api/add/workouts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(req.body),
+    });
     const data = await response.json();
     res.json(data);
 })
