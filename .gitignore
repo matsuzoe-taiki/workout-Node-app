@@ -1,6 +1,6 @@
 #Python
 __pycache__/
-*.pyc
+app.cpython-312.pyc
 
 #Virtual environment
 venv/
