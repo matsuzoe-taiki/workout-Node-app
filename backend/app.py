@@ -92,6 +92,28 @@ def home():
         db.close()
     return jsonify(workouts)
 
+# ワークアウト追加のルーティング
+@app.post("/api/add/workouts")
+def add_workouts():
+    data = request.get_json()
+    name = data["name"]
+    weight = data["weight"]
+    reps = data["reps"]
+    sets = data["sets"]
+    db = getConnection()
+    cursor = db.cursor()
+    try:
+        sql = "INSERT INTO workotus (name, weight, reps, sets) VALUES (%s, %s, %s, %s)"
+        cursor.execute(sql, (name, weight, reps, sets))
+        db.commit()
+    except Exception as e:
+        return jsonify({"message": "※追加できませんでした"})
+    finally:
+        cursor.close()
+        db.close()
+        return jsonify({"message": "追加完了しました!!"})
+
+
 @app.get("/signout")
 def signout():
     session.clear()
