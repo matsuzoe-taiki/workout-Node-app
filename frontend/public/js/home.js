@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 reps: reps,
                 sets: sets
             };
-        console.log(data)
         const response = await fetch("/api/add/workouts", {
         method: "POST",
         headers: { "Content-type": "application/json" },
+        credentials: "include", //session[user_id]が正しく読める
         body: JSON.stringify(data),
         });
         const result = await response.json();

@@ -5,7 +5,8 @@ import pymysql
 import os
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+# app.secret_key = os.urandom(24)
+app.secret_key = "taikii1115"
 
 # 認証チェック（ログインしてる人のみ通す仕組み）
 def login_required(f):
@@ -84,7 +85,7 @@ def home():
     cursor = db.cursor()
     try:
         user_id = session.get("user_id")
-        sql = "SELECT * FROM workouts WHERE id = %s"
+        sql = "SELECT * FROM workouts WHERE user_id = %s"
         cursor.execute(sql, (user_id,))
         workouts = cursor.fetchall()
     finally:
@@ -95,6 +96,8 @@ def home():
 # ワークアウト追加のルーティング
 @app.post("/api/add/workouts")
 def add_workouts():
+    user_id = session.get("user_id")
+    target_id = 1
     data = request.get_json()
     name = data["name"]
     weight = data["weight"]
@@ -103,15 +106,16 @@ def add_workouts():
     db = getConnection()
     cursor = db.cursor()
     try:
-        sql = "INSERT INTO workotus (name, weight, reps, sets) VALUES (%s, %s, %s, %s)"
-        cursor.execute(sql, (name, weight, reps, sets))
+        sql = "INSERT INTO workouts (user_id, target_id, name, weight, reps, sets) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql, (user_id, target_id, name, weight, reps, sets))
         db.commit()
+        return jsonify({"message": "追加完了しました!!"})
     except Exception as e:
-        return jsonify({"message": "※追加できませんでした"})
+        print("DBError:", e)
+        return jsonify({"message": "※追加できませんでした"}), 500
     finally:
         cursor.close()
         db.close()
-        return jsonify({"message": "追加完了しました!!"})
 
 
 @app.get("/signout")

@@ -23,11 +23,16 @@ app.get("/api/get/workouts", async (req, res) => {
 app.post("/api/add/workouts", async (req, res) => {
     const response = await fetch("http://127.0.0.1:5000/api/add/workouts", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+            cookie: req.headers.cookie || "",
+        },
         body: JSON.stringify(req.body),
     });
+    const setCookie = response.headers.get("set-cookie");
+    if (setCookie) res.set("set-cookie", setCookie);
+
     const data = await response.json();
-    res.json(data);
+    res.status(response.status).json(data);
 })
 //
 
@@ -42,8 +47,17 @@ app.get("/signin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "signin.html"));
 });
 
-app.get("/signout", (req, res) => {
-
+app.get("/signout", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/signout", {
+        method: "GET",
+        headers: {
+            cookie: req.headers.cookie || "",
+        },
+        redirect: "manual"
+    });
+    const setCookie = response.headers.get("set-cookie");
+    if (setCookie) res.set("set-cookie", setCookie);
+    res.redirect("/signin")
 })
 
 // Flaskに新規登録の情報を送る
