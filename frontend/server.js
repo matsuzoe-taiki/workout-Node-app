@@ -15,8 +15,15 @@ app.get("/", (req, res) => {
 })
 // ワークアウトの取得
 app.get("/api/get/workouts", async (req, res) => {
-    const response = await fetch("http://127.0.0.1:5000/api/get/workouts");
+    console.log("ブラウザからCookieが送信されているか：", req.headers.cookie);
+
+    const response = await fetch("http://127.0.0.1:5000/api/get/workouts", {
+        headers: { "Content-Type": "application/json",
+            cookie: req.headers.cookie || "",
+        },
+    });
     const data = await response.json();
+    console.log(data)
     res.json(data);
 })
 // ワークアウトのデータベースへの追加
