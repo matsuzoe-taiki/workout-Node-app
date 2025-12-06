@@ -81,10 +81,12 @@ def signin():
 # ホーム画面のルーティング
 @app.get("/api/get/workouts")
 def home():
+    print(request.cookies)
     db = getConnection()
     cursor = db.cursor()
     try:
         user_id = session.get("user_id")
+        print(user_id)
         sql = "SELECT * FROM workouts WHERE user_id = %s"
         cursor.execute(sql, (user_id,))
         workouts = cursor.fetchall()
