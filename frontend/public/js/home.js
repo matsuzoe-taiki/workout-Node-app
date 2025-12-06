@@ -1,9 +1,11 @@
+
 document.addEventListener("DOMContentLoaded", () => {
     const addWorkout = document.getElementById('addWorkout');
     const nameInput = document.getElementById('nameInput');
     const weightInput = document.getElementById('weightInput');
     const repsInput = document.getElementById('repsInput');
     const setsInput = document.getElementById('setsInput');
+    const showWorkouts = document.getElementById('showWorkouts');
 
     // ワークアウト追加フォームイベントを監視する
     addWorkout.addEventListener('submit', async(e) => {
@@ -32,9 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
     async function renderWorkouts() {
         try {
             // バックサーバーにアクセス
-            const response = await fetch("/api/get/workouts");
+            const response = await fetch("/api/get/workouts", {
+                credentials:"include",
+            });
             const data = await response.json();
             console.log(data);
+            showWorkouts.innerHTML = "";
+            data.forEach(workout => {
+                const div = document.createElement("div");
+                div.innerHTML = `<h3>${workout.name}</h3>`;
+                showWorkouts.appendChild(div);
+            });
         }catch(error){
             console.error("エラー：", error);
         }
