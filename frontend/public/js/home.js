@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         const result = await response.json();
         alert(`${result.message}`);
+        window.location.reload();
     });
 
     // ワークアウト一覧を表示する
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showWorkouts.innerHTML = "";
             data.forEach(workout => {
                 const div = document.createElement("div");
+                div.classList.add("workout-card");//カードクラスを追加
                 div.innerHTML = `<h3>${workout.name}</h3>`;
                 showWorkouts.appendChild(div);
             });
