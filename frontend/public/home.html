@@ -28,12 +28,16 @@
       <h1>ワークアウト一覧</h1>
 
       <!-- 記録一覧表示 -->
-      <form id="addWorkout">
-        <input type="text" id="nameInput" placeholder="種目名">
-        <input type="text" id="weightInput" placeholder="重量">
-        <input type="text" id="repsInput" placeholder="回数">
-        <input type="text" id="setsInput" placeholder="セット数">
-        <button type="submit">追加</button>
+      <form>
+        <div id="addWorkout">
+          <input type="text" id="nameInput" placeholder="種目名">
+          <input type="text" id="weightInput" placeholder="重量">
+          <input type="text" id="repsInput" placeholder="回数">
+          <input type="text" id="setsInput" placeholder="セット数">
+        </div>
+        <div id="workoutBtn">
+          <button type="submit">ワークアウトを追加する🏋️</button>
+        </div>
       </form>
       <div id="showWorkouts"></div>
     </main>
