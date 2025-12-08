@@ -1,14 +1,14 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-    const addWorkout = document.getElementById('addWorkout');
     const nameInput = document.getElementById('nameInput');
     const weightInput = document.getElementById('weightInput');
     const repsInput = document.getElementById('repsInput');
     const setsInput = document.getElementById('setsInput');
     const showWorkouts = document.getElementById('showWorkouts');
+    const addForm = document.getElementById('addForm');
 
     // ワークアウト追加フォームイベントを監視する
-    addWorkout.addEventListener('submit', async(e) => {
+    addForm.addEventListener('submit', async(e) => {
         e.preventDefault();
         const name = nameInput.value;
         const weight = weightInput.value;
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 credentials:"include",
             });
             const data = await response.json();
-            console.log(data);
             showWorkouts.innerHTML = "";
             data.forEach(workout => {
                 const div = document.createElement("div");
