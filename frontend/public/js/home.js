@@ -48,10 +48,25 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }catch(error){
             console.error("エラー：", error);
+        }finally{
+            // const workoutCards = document.querySelectorAll('.workout-card');
+            // console.log(workoutCards);
+            // workoutCards.forEach(card => {
+            //     console.log(card)
+            //     card.addEventListener("pointerdown", (e) => {
+            //         card.style.background = "red";
+            //     });
+            // })
+            const cardDialog = document.getElementById('cardDialog');
+            document.querySelectorAll('.workout-card').forEach(card => {
+                console.log("成功")
+                card.addEventListener("click", () => {
+                    cardDialog.showModal();
+                });
+            });
+
         }
-
-
     }
     // 初回ロード時に保存済みデータを表示
-    renderWorkouts()
+    renderWorkouts();
 });
