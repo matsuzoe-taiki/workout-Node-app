@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(workout => {
                 const div = document.createElement("div");
                 div.classList.add("workout-card");//カードクラスを追加
-                div.innerHTML = `<h3>${workout.name}</h3>`;
+                div.innerHTML = `<div>${workout.name}</div><div>${workout.weight}kg</div><div>${workout.reps}回</div><div>${workout.sets}セット</div>`;
                 showWorkouts.appendChild(div);
             });
         }catch(error){

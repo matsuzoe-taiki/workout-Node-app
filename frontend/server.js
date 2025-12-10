@@ -9,6 +9,8 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(express.static(path.join(__dirname, "public")));
+
 // ホーム画面のAPI
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "home.html"));
@@ -35,7 +37,7 @@ app.post("/api/add/workouts", async (req, res) => {
         },
         body: JSON.stringify(req.body),
     });
-    const setCookie = response.headers.get("set-cookie");
+    const setCookie = response.headers.get("set-cookie");//このconst setCookieとif文はブラウザにsessionの更新が必要であるときに必要であるため、/signinや/signout時に必要であるため、ワークアウトの追加時などには必要ない
     if (setCookie) res.set("set-cookie", setCookie);
 
     const data = await response.json();
@@ -43,30 +45,11 @@ app.post("/api/add/workouts", async (req, res) => {
 })
 //
 
-app.use(express.static(path.join(__dirname, "public")));
 
-
+// サインアップAPI
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "signup.html"));
 });
-
-app.get("/signin", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "signin.html"));
-});
-
-app.get("/signout", async (req, res) => {
-    const response = await fetch("http://127.0.0.1:5000/signout", {
-        method: "GET",
-        headers: {
-            cookie: req.headers.cookie || "",
-        },
-        redirect: "manual"
-    });
-    const setCookie = response.headers.get("set-cookie");
-    if (setCookie) res.set("set-cookie", setCookie);
-    res.redirect("/signin")
-})
-
 // Flaskに新規登録の情報を送る
 app.post("/signup", async (req, res) => {
     const resp = await fetch("http://127.0.0.1:5000/signup", {
@@ -78,6 +61,11 @@ app.post("/signup", async (req, res) => {
     res.status(resp.status).json(data);
 })
 
+
+// サインインAPI
+app.get("/signin", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "signin.html"));
+});
 // Flaskにログインフォームの情報を送る
 app.post("/signin", async (req, res) => {
     const resp = await fetch("http://127.0.0.1:5000/signin", {
@@ -95,6 +83,19 @@ app.post("/signin", async (req, res) => {
 })
 
 
+// サインアウトAPI
+app.get("/signout", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/signout", {
+        method: "GET",
+        headers: {
+            cookie: req.headers.cookie || "",
+        },
+        redirect: "manual"
+    });
+    const setCookie = response.headers.get("set-cookie");
+    if (setCookie) res.set("set-cookie", setCookie);
+    res.redirect("/signin")
+})
 
 
 

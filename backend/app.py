@@ -97,7 +97,6 @@ def home():
 @app.post("/api/add/workouts")
 def add_workouts():
     user_id = session.get("user_id")
-    target_id = 1
     data = request.get_json()
     name = data["name"]
     weight = data["weight"]
@@ -106,8 +105,8 @@ def add_workouts():
     db = getConnection()
     cursor = db.cursor()
     try:
-        sql = "INSERT INTO workouts (user_id, target_id, name, weight, reps, sets) VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql, (user_id, target_id, name, weight, reps, sets))
+        sql = "INSERT INTO workouts (user_id, name, weight, reps, sets) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql, (user_id, name, weight, reps, sets))
         db.commit()
         return jsonify({"message": "追加完了しました!!"})
     except Exception as e:
