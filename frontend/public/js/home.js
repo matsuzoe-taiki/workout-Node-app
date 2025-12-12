@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const setsInput = document.getElementById('setsInput');
     const showWorkouts = document.getElementById('showWorkouts');
     const addForm = document.getElementById('addForm');
+    const cardDialog = document.getElementById('cardDialog');
+    const updateBtn = document.getElementById('updateBtn');
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    let selectedID = null;
+
 
     // ワークアウト追加フォームイベントを監視する
     addForm.addEventListener('submit', async(e) => {
@@ -42,31 +48,41 @@ document.addEventListener("DOMContentLoaded", () => {
             showWorkouts.innerHTML = "";
             data.forEach(workout => {
                 const div = document.createElement("div");
+                console.log(div.dataset.id);            
                 div.classList.add("workout-card");//カードクラスを追加
                 div.innerHTML = `<div>${workout.name}</div><div>${workout.weight}kg</div><div>${workout.reps}回</div><div>${workout.sets}セット</div>`;
+
+                div.addEventListener("click", () => {
+                    selectedID = workout.id
+                    cardDialog.showModal();
+                });
                 showWorkouts.appendChild(div);
             });
         }catch(error){
             console.error("エラー：", error);
-        }finally{
-            // const workoutCards = document.querySelectorAll('.workout-card');
-            // console.log(workoutCards);
-            // workoutCards.forEach(card => {
-            //     console.log(card)
-            //     card.addEventListener("pointerdown", (e) => {
-            //         card.style.background = "red";
-            //     });
-            // })
-            const cardDialog = document.getElementById('cardDialog');
-            document.querySelectorAll('.workout-card').forEach(card => {
-                console.log("成功")
-                card.addEventListener("click", () => {
-                    cardDialog.showModal();
-                });
-            });
-
         }
-    }
+    }  
     // 初回ロード時に保存済みデータを表示
     renderWorkouts();
+
+    //編集するボタンを押した時の処理
+    updateBtn.addEventListener("click", () => {
+        
+    })
+    //削除ボタンを押した時の処理
+    deleteBtn.addEventListener("click", async () => {
+        console.log("削除ボタンが押されました")
+        data = {
+            id: selectedID
+        }
+        const response = await fetch("/api/delete/workouts", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        alert(result.message);
+        window.location.reload();
+    })
 });

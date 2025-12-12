@@ -116,6 +116,23 @@ def add_workouts():
         cursor.close()
         db.close()
 
+# ワークアウト削除のルーティング
+@app.post("/api/delete/workouts")
+def delete_workouts():
+    data = request.get_json()
+    workout_id = data["id"]
+    db = getConnection()
+    cursor = db.cursor()
+    try:
+        sql = "DELETE FROM workouts WHERE id = %s"
+        cursor.execute(sql, (workout_id,))
+        db.commit()
+        return jsonify({"message": "削除できました!!"})
+    except Exception as e:
+        print("DBerror:", e)
+        return jsonify({"message": "※削除できませんでした"})
+
+
 
 @app.get("/signout")
 def signout():

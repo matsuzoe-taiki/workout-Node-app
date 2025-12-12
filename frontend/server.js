@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
 })
 // ワークアウトの取得
 app.get("/api/get/workouts", async (req, res) => {
-    console.log("ブラウザからCookieが送信されているか：", req.headers.cookie);
 
     const response = await fetch("http://127.0.0.1:5000/api/get/workouts", {
         headers: { "Content-Type": "application/json",
@@ -25,7 +24,6 @@ app.get("/api/get/workouts", async (req, res) => {
         },
     });
     const data = await response.json();
-    console.log(data)
     res.json(data);
 })
 // ワークアウトのデータベースへの追加
@@ -42,6 +40,18 @@ app.post("/api/add/workouts", async (req, res) => {
 
     const data = await response.json();
     res.status(response.status).json(data);
+})
+
+//ワークアウトの削除API
+app.post("/api/delete/workouts", async (req, res) => {
+    console.log("ここまではきてるよ")
+    const response = await fetch("http://127.0.0.1:5000/api/delete/workouts", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(req.body)
+    })
+    const data = await response.json();
+    res.json(data);
 })
 //
 
