@@ -43,11 +43,18 @@
 
       <!-- モーダル表示 -->
       <dialog id="cardDialog">
-        <form method="dialog">
-          <button id="closeBtn">×</button><br>
-          <button id="updateBtn">編集する</button>
-          <button id="deleteBtn">削除する</button>
-        </form>
+            <button id="closeBtn">×</button><br>
+            <button id="updateBtn" hidden>編集する</button>
+            <button id="deleteBtn" hidden>削除する</button>
+            <!-- 編集ボタンが押された時に表示されるとこ -->
+            <h1 id="editTitle" hidden>編集!!!</h1>
+            <form id="editForm">
+              <input type="text" id="editNameInput" placeholder="種目名" hidden>
+              <input type="text" id="editWeightInput" placeholder="重量" hidden>
+              <input type="text" id="editRepsInput" placeholder="回数" hidden>
+              <input type="text" id="editSetsInput" placeholder="セット数" hidden>
+              <button type="submit" id="editFinBtn" hidden>編集完了!!</button>
+            </form>
       </dialog>
     </main>
 

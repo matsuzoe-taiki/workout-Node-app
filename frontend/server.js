@@ -35,10 +35,21 @@ app.post("/api/add/workouts", async (req, res) => {
         },
         body: JSON.stringify(req.body),
     });
-    const setCookie = response.headers.get("set-cookie");//このconst setCookieとif文はブラウザにsessionの更新が必要であるときに必要であるため、/signinや/signout時に必要であるため、ワークアウトの追加時などには必要ない
-    if (setCookie) res.set("set-cookie", setCookie);
-
     const data = await response.json();
+    res.status(response.status).json(data);
+})
+
+// ワークアウトの編集API
+app.post("/api/update/workouts", async (req, res) => {
+    const response = await fetch("http://127.0.0.1:5000/api/update/workouts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json",
+            cookie: req.headers.cookie || "",
+         },
+        body: JSON.stringify(req.body)    
+    });
+    const data = await response.json();
+    console.log(data)
     res.status(response.status).json(data);
 })
 
@@ -78,6 +89,7 @@ app.get("/signin", (req, res) => {
 });
 // Flaskにログインフォームの情報を送る
 app.post("/signin", async (req, res) => {
+    console.log("ここまではきてるよ")
     const resp = await fetch("http://127.0.0.1:5000/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

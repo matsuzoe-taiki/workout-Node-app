@@ -74,7 +74,7 @@ def signin():
         session["user_name"] = item["name"]
         session["user_email"] = item["email"]
         session["first_login"] = True
-        return jsonify({"message": "ログイン成功"}), 200
+        return jsonify({"message": "ログイン成功"})
     else:
         return "ログイン失敗"
 
@@ -115,6 +115,25 @@ def add_workouts():
     finally:
         cursor.close()
         db.close()
+
+# ワークアウト編集のルーティング
+@app.post("/api/update/workouts")
+def update_workouts():
+    data = request.get_json()
+    workout_id = data["id"]
+    name = data["name"]
+    weight = data["weight"]
+    reps = data["reps"]
+    sets = data["sets"]
+    db = getConnection()
+    cursor = db.cursor()
+    try:
+        sql = "UPDATE workouts SET name = %s, weight = %s, reps = %s, sets = %s WHERE id = %s"
+        cursor.execute(sql, (name, weight, reps, sets, workout_id))
+        db.commit()
+        return jsonify({"message": "編集が完了しました!!"})
+    except Exception as e:
+        return jsonify({"message": "編集できませんでした"})
 
 # ワークアウト削除のルーティング
 @app.post("/api/delete/workouts")

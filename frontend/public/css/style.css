@@ -178,7 +178,7 @@ h1 {
 }
 
 /* ワークアウトカードのモーダルCSS */
-:modal {
+#cardDialog:modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,10 +189,10 @@ h1 {
     height: 8rem;
     padding: 10px;
 }
-:modal button {
+#cardDialog:modal button {
     font-size: 40px;
 }
-:modal #closeBtn {
+#cardDialog:modal #closeBtn {
     position: absolute;
     top: 0;
     right: 0;
@@ -200,10 +200,39 @@ h1 {
     background-color: white;
     font-size: 50px;
 }
-:modal #updateBtn {
+#cardDialog:modal #updateBtn {
     margin: 0 40px 0 0;
 }
-:modal #deleteBtn {
+#cardDialog:modal #deleteBtn {
     margin: 0 0 0 40px;
+}
+
+#cardDialog:modal.open {
+    transition: height 0.4s ease;
+    height: 30rem;
+}
+#cardDialog:modal.open #editTitle {
+    margin: 10px;
+    position: absolute;
+    top: 0;
+}
+#cardDialog:modal.open #editForm{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+   gap: 10px;
+}
+#cardDialog:modal.open #editForm input {
+    width: 60%;
+    height: 10%;
+    font-size: 2rem;
+}
+#cardDialog:modal.open #editForm button{
+    width: 25%;
+    height: 15%;
+    font-size: 1.5rem;
 }
 
