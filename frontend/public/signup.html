@@ -3,27 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Workout Log</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/signup.css">
   </head>
 
   <body>
-    <p>新規登録を行なってください</p>
-    <form id="signupForm">
+    <header>
+      <div id="signin-top-box">
+        <img class="app-logo" src="/static/logo.png" alt="ロゴ">
+        <h1>Workout Log</h1>
+      </div>
+    </header>
 
-      <label for="nameInput">ユーザーネーム</label>
-      <input type="text" id="nameInput">
-      <p id="name_errorMessage" class="name-error-message"></p>
-      
-      <label for="emailInput">メールアドレス</label>
-      <input type="email" id="emailInput">
-      <p id="email_errorMessage" class="email-error-message"></p>
+    <main>
+      <h1>新規登録を行なってください</h1>
+      <form id="signupForm">
 
-      <label for="passInput">パスワード</label>
-      <input type="text" id="passInput">
-      <p id="pass_errorMessage" class="pass-error-message"></p>
-      <button>登録する</button>
-    </form>
-    <a href="/signin">ログイン</a>
+        <label for="nameInput">ユーザーネーム</label>
+        <input type="text" id="nameInput">
+        <p id="name_errorMessage" class="name-error-message"></p>
+        
+        <label for="emailInput">メールアドレス</label>
+        <input type="email" id="emailInput">
+        <p id="email_errorMessage" class="email-error-message"></p>
+
+        <label for="passInput">パスワード</label>
+        <input type="text" id="passInput">
+        <p id="pass_errorMessage" class="pass-error-message"></p>
+        <button>登録する</button>
+      </form>
+      <a href="/signin">すでに新規登録されている方</a>
+    </main>
+
 
     <footer>
       <small>© 2025 Workout Log</small>
