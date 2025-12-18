@@ -3,18 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Workout Log</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/signin.css">
   </head>
 
   <body>
     <header>
-      <h1>Workout Log</h1>
-      <nav>
-        <a href="/signup">新規登録</a>
-      </nav>
+      <div id="signin-top-box">
+        <img class="app-logo" src="/static/logo.png" alt="ロゴ">
+        <h1>Workout Log</h1>
+      </div>
     </header>
 
-    <main>
+    <div id="main">
+      <a href="/signup">新規登録</a>
       <h1>ログイン</h1>
       <form id="signinForm">
         <label for="emailInput">メールアドレス</label>
@@ -27,7 +28,7 @@
 
         <button>ログインする</button>
       </form>
-    </main>
+    </div>
 
     <footer>
       <small>© 2025 Workout Log</small>
